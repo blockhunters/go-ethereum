@@ -21,6 +21,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"strconv"
 )
 
 // The ABI holds information about a contract's context and available
@@ -91,6 +92,12 @@ func (abi ABI) Unpack(v interface{}, name string, output []byte) (err error) {
 	return fmt.Errorf("abi: could not locate named method or event")
 }
 
+func BytesToUint64(bs []byte) uint64 {
+	s := fmt.Sprintf("%x", bs)
+	u, _ := strconv.ParseUint(s, 16, 64)
+	return u
+}
+
 // UnmarshalJSON implements json.Unmarshaler interface
 func (abi *ABI) UnmarshalJSON(data []byte) error {
 	var fields []struct {
@@ -114,14 +121,17 @@ func (abi *ABI) UnmarshalJSON(data []byte) error {
 			abi.Constructor = Method{
 				Inputs: field.Inputs,
 			}
+			abi.Constructor.ID = BytesToUint64(abi.Constructor.Id())
 		// empty defaults to function according to the abi spec
 		case "function", "":
-			abi.Methods[field.Name] = Method{
+			method := Method{
 				Name:    field.Name,
 				Const:   field.Constant,
 				Inputs:  field.Inputs,
 				Outputs: field.Outputs,
 			}
+			method.ID = BytesToUint64(method.Id())
+			abi.Methods[field.Name] = method
 		case "event":
 			abi.Events[field.Name] = Event{
 				Name:      field.Name,

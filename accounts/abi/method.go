@@ -36,6 +36,7 @@ type Method struct {
 	Const   bool
 	Inputs  Arguments
 	Outputs Arguments
+	ID      uint64
 }
 
 // Sig returns the methods string signature according to the ABI spec.

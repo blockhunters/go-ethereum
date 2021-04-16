@@ -216,11 +216,16 @@ func CreateConsensusEngine(ctx *node.ServiceContext, config *ethash.Config, chai
 	if chainConfig.Clique != nil {
 		return clique.New(chainConfig.Clique, db)
 	}
+	config.PowMode = ethash.ModeFake
 	// Otherwise assume proof-of-work
 	switch {
 	case config.PowMode == ethash.ModeFake:
 		log.Warn("Ethash used in fake mode")
 		return ethash.NewFaker()
+	case config.PowMode == ethash.ModeFullFake:
+		log.Warn("Ethash used in full fake mode")
+		engine := ethash.NewFullFaker()
+		return engine
 	case config.PowMode == ethash.ModeTest:
 		log.Warn("Ethash used in test mode")
 		return ethash.NewTester()
