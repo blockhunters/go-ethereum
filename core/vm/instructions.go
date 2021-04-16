@@ -31,11 +31,51 @@ import (
 var (
 	bigZero                  = new(big.Int)
 	tt255                    = math.BigPow(2, 255)
+	tt256m1                  = new(big.Int).Sub(math.BigPow(2, 256), big.NewInt(1))
 	errWriteProtection       = errors.New("evm: write protection")
 	errReturnDataOutOfBounds = errors.New("evm: return data out of bounds")
 	errExecutionReverted     = errors.New("evm: execution reverted")
 	errMaxCodeSizeExceeded   = errors.New("evm: max code size exceeded")
+	errIntegerOverflow       = errors.New("fuzz: integer overflow")
+	errIntegerUnderflow      = errors.New("fuzz: integer undeflow")
 )
+
+func opAddSafe(pc *uint64, evm *EVM, contract *Contract, memory *Memory, stack *Stack) ([]byte, error) {
+	x, y := stack.pop(), stack.peek()
+	// y > tt256m1 - x
+	var res = y.Add(x, y)
+	if res.Cmp(tt256m1) > 0 {
+		return nil, errIntegerOverflow
+	}
+	math.U256(res)
+
+	evm.interpreter.intPool.put(x)
+	return nil, nil
+}
+
+func opSubSafe(pc *uint64, evm *EVM, contract *Contract, memory *Memory, stack *Stack) ([]byte, error) {
+	x, y := stack.pop(), stack.peek()
+	if x.Cmp(y) < 0 {
+		return nil, errIntegerUnderflow
+	}
+	math.U256(y.Sub(x, y))
+
+	evm.interpreter.intPool.put(x)
+	return nil, nil
+}
+
+func opMulSafe(pc *uint64, evm *EVM, contract *Contract, memory *Memory, stack *Stack) ([]byte, error) {
+	x, y := stack.pop(), stack.pop()
+	res := x.Mul(x, y)
+	if res.Cmp(tt256m1) > 0 {
+		return nil, errIntegerOverflow
+	}
+	stack.push(math.U256(res))
+
+	evm.interpreter.intPool.put(y)
+
+	return nil, nil
+}
 
 func opAdd(pc *uint64, evm *EVM, contract *Contract, memory *Memory, stack *Stack) ([]byte, error) {
 	x, y := stack.pop(), stack.peek()
