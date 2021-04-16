@@ -22,12 +22,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/eth/downloader"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/blockhunters/go-ethereum/common"
+	"github.com/blockhunters/go-ethereum/core/types"
+	"github.com/blockhunters/go-ethereum/crypto"
+	"github.com/blockhunters/go-ethereum/eth/downloader"
+	"github.com/blockhunters/go-ethereum/p2p"
+	"github.com/blockhunters/go-ethereum/rlp"
 )
 
 func init() {

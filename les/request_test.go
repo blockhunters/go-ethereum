@@ -21,12 +21,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/eth"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/light"
+	"github.com/blockhunters/go-ethereum/common"
+	"github.com/blockhunters/go-ethereum/core"
+	"github.com/blockhunters/go-ethereum/crypto"
+	"github.com/blockhunters/go-ethereum/eth"
+	"github.com/blockhunters/go-ethereum/ethdb"
+	"github.com/blockhunters/go-ethereum/light"
 )
 
 var testBankSecureTrieKey = secAddr(testBankAddress)

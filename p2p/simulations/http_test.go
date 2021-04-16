@@ -27,12 +27,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ethereum/go-ethereum/event"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/p2p/discover"
-	"github.com/ethereum/go-ethereum/p2p/simulations/adapters"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/blockhunters/go-ethereum/event"
+	"github.com/blockhunters/go-ethereum/node"
+	"github.com/blockhunters/go-ethereum/p2p"
+	"github.com/blockhunters/go-ethereum/p2p/discover"
+	"github.com/blockhunters/go-ethereum/p2p/simulations/adapters"
+	"github.com/blockhunters/go-ethereum/rpc"
 )
 
 // testService implements the node.Service interface and provides protocols

@@ -20,13 +20,13 @@ import (
 	"context"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/bloombits"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/event"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/blockhunters/go-ethereum/common"
+	"github.com/blockhunters/go-ethereum/core"
+	"github.com/blockhunters/go-ethereum/core/bloombits"
+	"github.com/blockhunters/go-ethereum/core/types"
+	"github.com/blockhunters/go-ethereum/ethdb"
+	"github.com/blockhunters/go-ethereum/event"
+	"github.com/blockhunters/go-ethereum/rpc"
 )
 
 type Backend interface {
