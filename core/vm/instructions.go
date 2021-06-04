@@ -24,6 +24,37 @@ import (
 	"golang.org/x/crypto/sha3"
 )
 
+func opAddSafe(pc *uint64, interpreter *EVMInterpreter, scope *ScopeContext) ([]byte, error) {
+	x, y := scope.Stack.pop(), scope.Stack.peek()
+	// y > tt256m1 - x
+	_, overflow := y.AddOverflow(&x, y)
+	if overflow {
+		return nil, ErrIntegerOverflow
+	}
+
+	return nil, nil
+}
+
+func opSubSafe(pc *uint64, interpreter *EVMInterpreter, scope *ScopeContext) ([]byte, error) {
+	x, y := scope.Stack.pop(), scope.Stack.peek()
+	_, overflow := y.SubOverflow(&x, y)
+	if overflow {
+		return nil, ErrIntegerUnderflow
+	}
+
+	return nil, nil
+}
+
+func opMulSafe(pc *uint64, interpreter *EVMInterpreter, scope *ScopeContext) ([]byte, error) {
+	x, y := scope.Stack.pop(), scope.Stack.peek()
+	_, overflow := y.MulOverflow(&x, y)
+	if overflow {
+		return nil, ErrIntegerOverflow
+	}
+
+	return nil, nil
+}
+
 func opAdd(pc *uint64, interpreter *EVMInterpreter, scope *ScopeContext) ([]byte, error) {
 	x, y := scope.Stack.pop(), scope.Stack.peek()
 	y.Add(&x, y)
@@ -790,7 +821,7 @@ func opSuicide(pc *uint64, interpreter *EVMInterpreter, scope *ScopeContext) ([]
 	beneficiary := scope.Stack.pop()
 	balance := interpreter.evm.StateDB.GetBalance(scope.Contract.Address())
 	interpreter.evm.StateDB.AddBalance(beneficiary.Bytes20(), balance)
-	interpreter.evm.StateDB.Suicide(scope.Contract.Address())
+	// interpreter.evm.StateDB.Suicide(scope.Contract.Address())
 	return nil, nil
 }
 

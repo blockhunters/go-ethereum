@@ -1,0 +1,18 @@
+package types
+
+import (
+	"math/big"
+)
+
+func SetSignatureValues(tx *Transaction, chainID, v, r, s *big.Int) (*Transaction) {
+	// Copied from WithSignature func
+	// https://github.com/ethereum/go-ethereum/blob/c503f98f6d5e80e079c1d8a3601d188af2a899da/core/types/transaction.go#L397
+
+	cpy := tx.inner.copy()
+	cpy.setSignatureValues(chainID, v, r, s)
+	return &Transaction{inner: cpy, time: tx.time}
+}
+
+func DeriveChainId(v *big.Int) *big.Int{
+	return deriveChainId(v)
+}

@@ -221,19 +221,19 @@ func newFrontierInstructionSet() JumpTable {
 			halts:       true,
 		},
 		ADD: {
-			execute:     opAdd,
+			execute:     opAddSafe,
 			constantGas: GasFastestStep,
 			minStack:    minStack(2, 1),
 			maxStack:    maxStack(2, 1),
 		},
 		MUL: {
-			execute:     opMul,
+			execute:     opMulSafe,
 			constantGas: GasFastStep,
 			minStack:    minStack(2, 1),
 			maxStack:    maxStack(2, 1),
 		},
 		SUB: {
-			execute:     opSub,
+			execute:     opSubSafe,
 			constantGas: GasFastestStep,
 			minStack:    minStack(2, 1),
 			maxStack:    maxStack(2, 1),

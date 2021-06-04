@@ -541,7 +541,8 @@ func NewFullFaker() *Ethash {
 // NewShared creates a full sized ethash PoW shared between all requesters running
 // in the same process.
 func NewShared() *Ethash {
-	return &Ethash{shared: sharedEthash}
+	// return &Ethash{shared: sharedEthash}
+	return NewFaker()
 }
 
 // Close closes the exit channel to notify all backend threads exiting.

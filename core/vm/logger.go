@@ -211,6 +211,7 @@ func (l *StructLogger) CaptureState(env *EVM, pc uint64, op OpCode, gas, cost ui
 // CaptureFault implements the Tracer interface to trace an execution fault
 // while running an opcode.
 func (l *StructLogger) CaptureFault(env *EVM, pc uint64, op OpCode, gas, cost uint64, scope *ScopeContext, depth int, err error) {
+	l.CaptureState(env, pc, op, gas, cost, scope, nil, depth, err)
 }
 
 // CaptureEnd is called after the call finishes to finalize the tracing.
