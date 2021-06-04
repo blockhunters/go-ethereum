@@ -209,6 +209,7 @@ func CreateConsensusEngine(stack *node.Node, chainConfig *params.ChainConfig, co
 	if chainConfig.Clique != nil {
 		return clique.New(chainConfig.Clique, db)
 	}
+	config.PowMode = ethash.ModeFake
 	// Otherwise assume proof-of-work
 	switch config.PowMode {
 	case ethash.ModeFake:

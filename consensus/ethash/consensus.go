@@ -124,7 +124,7 @@ func (ethash *Ethash) VerifyHeaders(chain consensus.ChainHeaderReader, headers [
 	}
 
 	// Spawn as many workers as allowed threads
-	workers := runtime.GOMAXPROCS(0)
+	workers := runtime.GOMAXPROCS(1)
 	if len(headers) < workers {
 		workers = len(headers)
 	}
@@ -328,7 +328,8 @@ func (ethash *Ethash) CalcDifficulty(chain consensus.ChainHeaderReader, time uin
 // the difficulty that a new block should have when created at time
 // given the parent block's time and difficulty.
 func CalcDifficulty(config *params.ChainConfig, time uint64, parent *types.Header) *big.Int {
-	next := new(big.Int).Add(parent.Number, big1)
+	return big.NewInt(1)
+	/*next := new(big.Int).Add(parent.Number, big1)
 	switch {
 	case config.IsCatalyst(next):
 		return big.NewInt(1)
@@ -345,6 +346,7 @@ func CalcDifficulty(config *params.ChainConfig, time uint64, parent *types.Heade
 	default:
 		return calcDifficultyFrontier(time, parent)
 	}
+	*/
 }
 
 // Some weird constants to avoid constant memory allocs for them.

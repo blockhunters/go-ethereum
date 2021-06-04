@@ -23,6 +23,9 @@ import (
 
 // List evm execution errors
 var (
+	ErrIntegerOverflow          = errors.New("fuzz: integer overflow")
+	ErrIntegerUnderflow         = errors.New("fuzz: integer undeflow")
+	ErrInvalidSubroutineEntry   = errors.New("invalid subroutine entry")
 	ErrOutOfGas                 = errors.New("out of gas")
 	ErrCodeStoreOutOfGas        = errors.New("contract creation code storage out of gas")
 	ErrDepth                    = errors.New("max call depth exceeded")
