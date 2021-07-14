@@ -21,7 +21,7 @@ var (
 func newCanonical(engine consensus.Engine, n int, full bool) (ethdb.Database, *BlockChain, error) {
 	var (
 		db      = rawdb.NewMemoryDatabase()
-		genesis = new(Genesis).MustCommit(db)
+		genesis = (&Genesis{BaseFee: big.NewInt(params.InitialBaseFee)}).MustCommit(db)
 	)
 
 	// Initialize a fresh chain with only a genesis block
