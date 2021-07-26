@@ -1,5 +1,8 @@
 package types
 
+import (
+	"math/big"
+)
 
 func SetSignatureValues(tx *Transaction, signer Signer, v, r, s *big.Int) (*Transaction) {
 	// Copied from WithSignature func
