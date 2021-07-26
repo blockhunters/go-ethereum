@@ -14,5 +14,5 @@ func SetSignatureValues(tx *Transaction, signer Signer, v, r, s *big.Int) (*Tran
 }
 
 func DeriveChainId(v *big.Int) *big.Int{
-	return deriveChainId(v *big.Int)
+	return deriveChainId(v)
 }
